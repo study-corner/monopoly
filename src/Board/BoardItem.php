@@ -1,18 +1,31 @@
 <?php
 
-namespace App\LinkedList;
+namespace App\Board;
 
-class ListItem
+class BoardItem
 {
-    private ?ListItem $parent = null;
-    private ?ListItem $child = null;
+    private ?Street $street = null;
+    private ?BoardItem $parent = null;
+    private ?BoardItem $child = null;
 
-    public function getParent(): ?ListItem
+    public function getStreet(): Street
+    {
+        return $this->street;
+    }
+
+    public function setStreet(Street $street): self
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    public function getParent(): ?BoardItem
     {
         return $this->parent;
     }
 
-    public function setParent(ListItem $parent): self
+    public function setParent(BoardItem $parent): self
     {
         $this->parent = $parent;
         $child = $parent->getChild();
@@ -23,12 +36,12 @@ class ListItem
         return $this;
     }
 
-    public function getChild(): ?ListItem
+    public function getChild(): ?BoardItem
     {
         return $this->child;
     }
 
-    public function setChild(ListItem $child): self
+    public function setChild(BoardItem $child): self
     {
         $this->child = $child;
         $parent = $child->getParent();
@@ -39,7 +52,7 @@ class ListItem
         return $this;
     }
 
-    private function isItemsSame(ListItem $item, ListItem $foreignItem): bool
+    private function isItemsSame(BoardItem $item, BoardItem $foreignItem): bool
     {
         return spl_object_hash($item) === spl_object_hash($foreignItem);
     }
